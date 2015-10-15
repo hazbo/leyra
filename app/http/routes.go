@@ -1,7 +1,7 @@
 package http
 
 import (
-	"github.com/labstack/echo"
+	"gopkg.in/leyra/echo.v1"
 
 	"leyra/app/http/controllers"
 )

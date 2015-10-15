@@ -1,0 +1,18 @@
+package controller
+
+import (
+	"net/http"
+
+	"gopkg.in/leyra/echo.v1"
+)
+
+type {{name}} struct {
+}
+
+func New{{name}}Controller() {{name}} {
+	return {{name}}{}
+}
+
+func (h {{name}}) Index(c *echo.Context) error {
+	return c.String(http.StatusOK, "Hello, World!")
+}

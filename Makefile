@@ -1,7 +1,7 @@
 all: leyra
 
 deps:
-	go get github.com/labstack/echo
+	go get gopkg.in/leyra/echo.v1
 	go get github.com/joho/godotenv
 
 leyra: deps main.go

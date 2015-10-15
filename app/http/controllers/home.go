@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"gopkg.in/leyra/echo.v1"
 )
 
 type Home struct {
