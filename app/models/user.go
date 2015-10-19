@@ -1,8 +1,10 @@
 package model
 
 type User struct {
-	Name string
-	Age  int
+	ID    int
+	Name  string
+	Age   int
+	Email string
 }
 
 var Users []User
