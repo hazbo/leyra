@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"github.com/joho/godotenv"
+	"gopkg.in/leyra/godotenv.v1"
 	"log"
 )
 

@@ -2,7 +2,7 @@ all: leyra
 
 deps:
 	go get gopkg.in/leyra/echo.v1
-	go get github.com/joho/godotenv
+	go get gopkg.in/leyra/godotenv.v1
 
 leyra: deps main.go
 	go fmt leyra/...

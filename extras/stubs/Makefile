@@ -1,7 +1,7 @@
 all: leyra
 
 deps:
-	{{deps}}
+	{{goget}}
 
 leyra: deps main.go
 	go fmt leyra/...
