@@ -12,6 +12,8 @@ func main() {
 	rc := bootstrap.NewRcConfig()
 	rc.Apply()
 
+	e := http.Route()
+
 	// Only attempt to make a database connection if it has been enabled in
 	// etc/rc.conf
 	if rc.DatabaseEnable == "YES" {
@@ -22,6 +24,5 @@ func main() {
 		db.DB().Ping()
 	}
 
-	// Currently this also starts the webserver
-	http.InitRoutes()
+	http.Serve(e, ":3000")
 }

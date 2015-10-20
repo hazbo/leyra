@@ -6,12 +6,17 @@ deps:
 	go get gopkg.in/leyra/mysql.v1
 	go get gopkg.in/leyra/gorm.v1
 	go get gopkg.in/leyra/toml.v1
+	go get gopkg.in/leyra/blackfriday.v1
 
-leyra: deps main.go
+env:
+	cp env.example .env
+
+leyra: env deps main.go
 	go fmt leyra/...
-	go build
+	go build -v
 
 run: leyra
+	@echo "Starting your application..."
 	./leyra
 
 clean: leyra

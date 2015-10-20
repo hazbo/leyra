@@ -5,8 +5,7 @@ import (
 	_ "gopkg.in/leyra/mysql.v1"
 	//"leyra/app/models"
 	"gopkg.in/leyra/toml.v1"
-	"io/ioutil"
-	"os"
+	bootutil "leyra/bootstrap/util"
 )
 
 type DatabaseConfig struct {
@@ -25,16 +24,7 @@ func NewDatabaseConfig() *DatabaseConfig {
 }
 
 func (dc *DatabaseConfig) Apply() *DatabaseConfig {
-	f, err := os.Open("./etc/database.conf")
-	if err != nil {
-		panic(err)
-	}
-
-	defer f.Close()
-	buf, err := ioutil.ReadAll(f)
-	if err != nil {
-		panic(err)
-	}
+	buf := bootutil.ConfigBuffer("./etc/database.conf")
 
 	if err := toml.Unmarshal(buf, dc); err != nil {
 		panic(err)

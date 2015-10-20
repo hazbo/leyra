@@ -1,10 +1,8 @@
 package bootstrap
 
 import (
-	"io/ioutil"
-	"os"
-
 	"gopkg.in/leyra/toml.v1"
+	bootutil "leyra/bootstrap/util"
 )
 
 type RcConfig struct {
@@ -16,16 +14,7 @@ func NewRcConfig() *RcConfig {
 }
 
 func (rc *RcConfig) Apply() *RcConfig {
-	f, err := os.Open("./etc/rc.conf")
-	if err != nil {
-		panic(err)
-	}
-
-	defer f.Close()
-	buf, err := ioutil.ReadAll(f)
-	if err != nil {
-		panic(err)
-	}
+	buf := bootutil.ConfigBuffer("./etc/rc.conf")
 
 	if err := toml.Unmarshal(buf, rc); err != nil {
 		panic(err)
