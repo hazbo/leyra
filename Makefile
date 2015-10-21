@@ -13,11 +13,11 @@ env:
 
 leyra: env deps main.go
 	go fmt leyra/...
-	go build -v
+	go build -v -o server
 
 run: leyra
 	@echo "Starting your application..."
-	./leyra
+	./server
 
-clean: leyra
-	rm leyra
+clean: server
+	rm server
