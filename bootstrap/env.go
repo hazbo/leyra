@@ -1,8 +1,9 @@
 package bootstrap
 
 import (
-	"gopkg.in/leyra/godotenv.v1"
 	"log"
+
+	"gopkg.in/leyra/godotenv.v1"
 )
 
 func SetEnv() {

@@ -1,8 +1,9 @@
 package controller
 
 import (
-	"gopkg.in/leyra/echo.v1"
 	"net/http"
+
+	"gopkg.in/leyra/echo.v1"
 )
 
 type Home struct {

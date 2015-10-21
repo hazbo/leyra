@@ -3,9 +3,10 @@ package bootstrap
 import (
 	"gopkg.in/leyra/gorm.v1"
 	_ "gopkg.in/leyra/mysql.v1"
-	//"leyra/app/models"
 	"gopkg.in/leyra/toml.v1"
+
 	bootutil "leyra/bootstrap/util"
+	//"leyra/app/models"
 )
 
 type DatabaseConfig struct {
