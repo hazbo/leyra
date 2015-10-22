@@ -17,7 +17,7 @@ func main() {
 	// Only attempt to make a database connection if it has been enabled in
 	// etc/rc.conf
 	if rc.DatabaseEnable == "YES" {
-		// Load database settings from etc/database.conf
+		// Load database settings from ./etc/database.conf
 		dc := bootstrap.NewDatabaseConfig().Apply()
 		db := dc.Connect()
 

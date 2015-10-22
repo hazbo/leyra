@@ -1,14 +1,19 @@
 all: leyra
 
 deps:
-	{{goget}}
+	{{ range $key, $value := .Goget}}go get {{ $value }}
+	{{ end }}
 
-leyra: deps main.go
+env:
+	cp env.example .env
+
+leyra: env deps main.go
 	go fmt leyra/...
-	go build
+	go build -v -o server
 
 run: leyra
-	./leyra
+	@echo "Starting your application..."
+	./server
 
-clean: leyra
-	rm leyra
+clean: server
+	rm server
