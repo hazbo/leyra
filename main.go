@@ -13,21 +13,15 @@ func main() {
 	rc := bootstrap.NewRcConfig()
 	rc.Apply()
 
-	// Server configuration
-	sc := bootstrap.NewServerConfig()
-	sc.Apply()
-
 	e := http.Route()
 
 	// Only attempt to make a database connection if it has been enabled in
 	// etc/rc.conf
-	if rc.DatabaseEnable == "YES" {
+	if rc.Database.EnableDatabase == "YES" {
 		// Load database settings from ./etc/database.conf
-		dc := bootstrap.NewDatabaseConfig().Apply()
-		db := dc.Connect()
-
+		db := rc.Connect()
 		db.DB().Ping()
 	}
 
-	http.Serve(e, sc.Port)
+	http.Serve(e, rc.Server.Port)
 }
