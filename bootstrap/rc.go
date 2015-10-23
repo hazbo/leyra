@@ -23,10 +23,6 @@ type RcConfig struct {
 	Server struct {
 		Port string
 	}
-
-	Deps struct {
-		Goget []string
-	}
 }
 
 // MysqlDatabase represents the basic configuration of how the user can connect
