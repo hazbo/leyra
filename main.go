@@ -9,8 +9,13 @@ func main() {
 	// Make calls to bootstrap here
 	bootstrap.SetEnv()
 
+	// Runtime configuration
 	rc := bootstrap.NewRcConfig()
 	rc.Apply()
+
+	// Server configuration
+	sc := bootstrap.NewServerConfig()
+	sc.Apply()
 
 	e := http.Route()
 
@@ -24,5 +29,5 @@ func main() {
 		db.DB().Ping()
 	}
 
-	http.Serve(e, ":3000")
+	http.Serve(e, sc.Port)
 }
