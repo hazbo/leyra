@@ -16,7 +16,6 @@ leyra: env deps main.go
 	go build -v -o server
 
 run: leyra
-	@echo "Starting your application..."
 	./server
 
 clean: server

@@ -15,6 +15,7 @@
 package main
 
 import (
+	"leyra/app"
 	"leyra/app/http"
 	"leyra/bootstrap"
 )
@@ -37,5 +38,6 @@ func main() {
 		db.DB().Ping()
 	}
 
+	app.Start()
 	http.Serve(e, rc.Server.Port)
 }
