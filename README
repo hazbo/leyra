@@ -1,1 +1,16 @@
-Just some web stuff I'm playing around with.
+This is still just some web stuff that I'm playing around with. A little more
+information on it - I'm trying to create a web "framework" of sorts, only I
+don't want it to have a bunch of dependencies to be tied down to, nor do I want
+unused packages / libraries as part of any final product made using this.
+
+Instead I'm making a skeleton that *does* depend on configuration which can also
+handle the project dependencies. 3rd party packages can be used, but I don't
+believe we should assume on what packages will be needed for any given project.
+As it stands, this project does contain "core" packages that are needed /used
+but this is mainly just while I'm developing it. I'd like to be able to not
+depend on any of these, with perhaps the exception of echo; which is what this
+if mainly built up on top of.
+
+I'll come back to this README in time.
+
+License: MIT

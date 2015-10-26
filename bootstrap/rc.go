@@ -1,6 +1,21 @@
+// leyra v0.0.1-dev
+//
+// (c) Ground Six 2015
+//
+// @package leyra
+// @version 0.0.1-dev
+//
+// @author Harry Lawrence <http://github.com/hazbo>
+//
+// License: MIT
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
 package bootstrap
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -31,6 +46,7 @@ type MysqlDatabase struct {
 	Username string
 	Password string
 	Port     string
+	Name     string
 }
 
 // NewRcConfig returns an empty instance of *RcConfig
@@ -53,11 +69,21 @@ func (c *RcConfig) Apply() *RcConfig {
 // This will not remain.
 func (c *RcConfig) Connect() gorm.DB {
 	// Just code for testing DB connections etc...
-	db, err := gorm.Open("mysql", "root@/leyra?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		panic(err)
-	}
+	var db gorm.DB
+	var err error
+	if c.Database.Database == "mysql" {
+		conn := fmt.Sprintf(
+			"%s@/%s?charset=utf8&parseTime=True&loc=Local",
+			c.Database.Mysql.Username,
+			c.Database.Mysql.Name,
+		)
 
+		db, err = gorm.Open("mysql", conn)
+
+		if err != nil {
+			panic(err)
+		}
+	}
 	return db
 }
 
