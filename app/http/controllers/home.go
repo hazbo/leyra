@@ -9,10 +9,6 @@ import (
 type Home struct {
 }
 
-func NewHomeController() Home {
-	return Home{}
-}
-
 func (h Home) Home(c *echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	return c.HTML(http.StatusOK, "Hello, World!")
 }

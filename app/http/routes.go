@@ -17,5 +17,5 @@ func Route() *echo.Echo {
 }
 
 func routeHome(c *echo.Context) error {
-	return controller.NewHomeController().Home(c)
+	return new(controller.Home).Home(c)
 }

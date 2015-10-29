@@ -14,6 +14,13 @@
 
 package main
 
+// The main package is responsible for bootstrapping the application and dealing
+// with any runtime configuration. There are both calles to app.Before and
+// app.After() that will allow you to run any code either just before or after
+// the web server has started.
+//
+// Typically you shouldn't have to edit anything in this file for now.
+
 import (
 	"sync"
 
@@ -42,6 +49,8 @@ func main() {
 		// Load database settings from ./etc/database.conf
 		db := rc.Connect()
 		db.DB().Ping()
+
+		app.S.DB = db
 	}
 
 	// Start application web server
