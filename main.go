@@ -15,12 +15,18 @@
 package main
 
 import (
+	"sync"
+
 	"leyra/app"
 	"leyra/app/http"
 	"leyra/bootstrap"
 )
 
 func main() {
+	// Create application WaitGroup
+	var wg sync.WaitGroup
+	wg.Add(1)
+
 	// Make calls to bootstrap here
 	bootstrap.SetEnv()
 
@@ -38,6 +44,10 @@ func main() {
 		db.DB().Ping()
 	}
 
-	app.Start()
-	http.Serve(e, rc.Server.Port)
+	// Start application web server
+	app.Before()
+	go http.Serve(e, rc.Server.Port)
+	app.After()
+
+	wg.Wait()
 }

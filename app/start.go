@@ -7,7 +7,12 @@ import (
 	"fmt"
 )
 
-// Start fires just before the application's web server is started.
-func Start() {
+// Before fires just before the application's web server is started.
+func Before() {
 	fmt.Printf("Starting your application...\n")
+}
+
+// After fires just after the application's web server has been started.
+func After() {
+
 }
