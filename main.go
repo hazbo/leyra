@@ -22,6 +22,10 @@ package main
 // Typically you shouldn't have to edit anything in this file for now.
 
 import (
+	"html/template"
+	"os"
+	"path/filepath"
+	"strings"
 	"sync"
 
 	"leyra/app"
@@ -52,6 +56,19 @@ func main() {
 
 		app.S.DB = db
 	}
+
+	// Parse and cache all the templates here, ready to go into the store
+	templates := template.New("template")
+
+	filepath.Walk("./app/views", func(path string, info os.FileInfo, err error) error {
+		if strings.HasSuffix(path, ".html") {
+			templates.ParseFiles(path)
+		}
+
+		return nil
+	})
+
+	app.S.Template = templates
 
 	// Start application web server
 	app.Before()
