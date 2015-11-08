@@ -28,6 +28,9 @@ import (
 	"strings"
 	"sync"
 
+	"gopkg.in/leyra/echo.v1"
+	"gopkg.in/leyra/sessions.v1"
+
 	"leyra/app"
 	"leyra/app/http"
 	"leyra/bootstrap"
@@ -45,7 +48,30 @@ func main() {
 	rc := bootstrap.NewRcConfig()
 	rc.Apply()
 
-	e := http.Route()
+	// Setup some basic session handling to work out of the box
+	var store = sessions.NewFilesystemStore(
+		"./storage/sessions",
+		[]byte("todo:changethis"),
+	)
+
+	app.S.Set = func(c *echo.Context, key string, value interface{}) {
+		session, _ := store.Get(
+			c.Request(),
+			"leyra",
+		)
+
+		session.Values[key] = value
+		session.Save(c.Request(), c.Response().Writer())
+	}
+
+	app.S.Get = func(c *echo.Context, key string) interface{} {
+		session, _ := store.Get(
+			c.Request(),
+			"leyra",
+		)
+
+		return session.Values[key]
+	}
 
 	// Only attempt to make a database connection if it has been enabled in
 	// etc/rc.conf
@@ -60,19 +86,21 @@ func main() {
 	// Parse and cache all the templates here, ready to go into the store
 	templates := template.New("template")
 
-	filepath.Walk("./app/views", func(path string, info os.FileInfo, err error) error {
-		if strings.HasSuffix(path, ".html") {
-			templates.ParseFiles(path)
-		}
+	filepath.Walk(
+		"./app/views",
+		func(path string, info os.FileInfo, err error) error {
+			if strings.HasSuffix(path, ".html") {
+				templates.ParseFiles(path)
+			}
 
-		return nil
-	})
+			return nil
+		})
 
-	app.S.Template = templates
+	app.S.View = templates
 
 	// Start application web server
 	app.Before()
-	go http.Serve(e, rc.Server.Port)
+	go http.Serve(http.Route(), rc.Server.Port)
 	app.After()
 
 	wg.Wait()

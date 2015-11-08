@@ -28,6 +28,10 @@ import (
 // the ./etc/rc.conf file. Anything in here is linked to the application
 // runtime.
 type RcConfig struct {
+	Application struct {
+		Key string
+	}
+
 	Database struct {
 		EnableDatabase string
 		Database       string
