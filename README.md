@@ -103,7 +103,71 @@ display the text you return in this controller.
 
 ###### Views
 
-Coming soon...
+Views make use of Go's `html/template` package. They can be located at
+`app/views`. Each view is just a regular HTML file, although they can make use
+of variables or anything else supported within the `html/template` package.
+
+Views are loaded in and cached initially on runtime. Eventually I'll get round
+to allowing caching to be turned on / off - probably somewhere in `etc/rc.conf`.
+
+Views can be accessed from the `Store` object (`S`), like so:
+
+```go
+app.S.View.ExecuteTemplate(buffer, "index.html", nil)
+```
+
+This will load in `app/views/index.html`, using no data to be passed through. A
+buffer can easily be created which is where the executed contents of your
+template will be stored. For example, in a controller you could do something
+like this:
+
+```go
+package controller
+
+import (
+	"bytes"
+	"net/http"
+
+	"gopkg.in/leyra/echo.v1"
+
+	"leyra/app"
+)
+
+type Home struct {
+}
+
+type IndexView struct {
+	FirstName string
+	LastName  string
+}
+
+func (h Home) Home(c *echo.Context) error {
+	buff := new(bytes.Buffer)
+
+	app.S.View.ExecuteTemplate(buff, "hello.html", IndexView{
+		FirstName: "John",
+		LastName: "Smith",
+	})
+
+	return c.HTML(http.StatusOK, buff.String())
+}
+```
+
+With a corresponding 'app/views/hello.html' looking something like this:
+
+```html
+<html>
+	<head>
+		<title>Hello!</title>
+	</head>
+	<body>
+		<h1>Hello {{ .FirstName }} {{ .LastName }}!</h1>
+	</body>
+</html>
+```
+
+This ties our controllers and views together. Next we'll look at using some real
+data here.
 
 ###### Models
 
