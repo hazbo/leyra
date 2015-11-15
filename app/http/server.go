@@ -12,5 +12,7 @@ func Serve(e *echo.Echo, port string) {
 	s := e.Server(port)
 	s.TLSConfig = nil
 
+	e.Static("/static", "public")
+
 	gracehttp.Serve(s)
 }

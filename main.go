@@ -23,6 +23,7 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -90,7 +91,10 @@ func main() {
 		"./app/views",
 		func(path string, info os.FileInfo, err error) error {
 			if strings.HasSuffix(path, ".html") {
-				templates.ParseFiles(path)
+				_, tmp_err := templates.ParseFiles(path)
+				if tmp_err != nil {
+					log.Fatal(tmp_err)
+				}
 			}
 
 			return nil
