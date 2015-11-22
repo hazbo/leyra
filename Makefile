@@ -21,17 +21,5 @@ leyra: env deps main.go
 run: leyra
 	./server
 
-rkt: server
-	acbuild begin
-	acbuild set-name example.com/leyra
-	acbuild copy server /bin/server
-	acbuild set-exec /bin/server
-	acbuild port add www tcp 3000
-	acbuild label add version 0.0.1
-	acbuild label add arch amd64
-	acbuild label add os linux
-	acbuild write server-0.0.1-linux-amd64.aci
-	acbuild end
-
 clean: server
 	rm server
