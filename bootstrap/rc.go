@@ -19,7 +19,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	_ "gopkg.in/leyra/go-sqlite3.v1"
+	//	_ "gopkg.in/leyra/go-sqlite3.v1"
 	"gopkg.in/leyra/gorm.v1"
 	_ "gopkg.in/leyra/mysql.v1"
 	"gopkg.in/leyra/toml.v1"
@@ -99,7 +99,7 @@ func (c *RcConfig) Connect() gorm.DB {
 
 	// Create or use a SQLite database
 	if c.Database.Database == "sqlite" {
-		db, err = gorm.Open("sqlite3", c.Database.Sqlite.DbPath)
+		//		db, err = gorm.Open("sqlite3", c.Database.Sqlite.DbPath)
 	}
 
 	return db
